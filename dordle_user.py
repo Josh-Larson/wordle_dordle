@@ -57,11 +57,11 @@ if __name__ == '__main__':
 		
 		print("")
 		if len(guesses_left) == 1:
-			print("Suggested: %-5s [%.2f]" % (guesses_left[0]))
+			print("Suggested: %-5s" % (guesses_left[0][0]))
 		elif len(guesses_right) == 1:
-			print("Suggested: %-5s [%.2f]" % (guesses_right[0]))
+			print("Suggested: %-5s" % (guesses_right[0][0]))
 		elif len(guesses_best) > 0 and (len(guesses_left) + len(guesses_right)) > 2 and (len(guesses_left) > 0 or len(guesses_right) > 0):
-			print("Suggested: %-5s [%.2f]" % (guesses_best[0]))
+			print("Suggested: %-5s" % (guesses_best[0][0]))
 		print("")
 		
 		print("%-12s    %-12s" % ("    Left    ", "   Right    "))
@@ -69,9 +69,9 @@ if __name__ == '__main__':
 		for i in range(min(5, max(len(guesses_left), len(guesses_right)))):
 			guess_left, guess_right = "", ""
 			if i < len(guesses_left):
-				guess_left = "%-5s [%.2f]" % guesses_left[i]
+				guess_left = "%-5s" % guesses_left[i][0]
 			if i < len(guesses_right):
-				guess_right = "%-5s [%.2f]" % guesses_right[i]
+				guess_right = "%-5s" % guesses_right[i][0]
 			
 			print("%-12s    %-12s" % (guess_left, guess_right))
 		

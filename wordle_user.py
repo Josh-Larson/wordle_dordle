@@ -36,8 +36,10 @@ if __name__ == '__main__':
 			break
 		elif len(possible_words) <= 10:
 			scored_words = [(word, evaluate_guess(possible_words, engine, word)) for word in possible_words]
+			print("Possibilities")
+			print("-------------")
 			for word in scored_words[:5]:
-				print("%s  [%.2f]" % word)
+				print("%s" % word[0])
 			if len(scored_words) == 0:
 				break
 		else:
