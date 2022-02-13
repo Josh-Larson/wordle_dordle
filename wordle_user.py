@@ -2,7 +2,7 @@ from backend.filter import compile_rules, filter_words
 from backend.heuristic import evaluate_guess
 from backend.engine import WordleEngine
 from backend.words import words_likely
-from user_input import get_invalid_guess_reason, get_invalid_hint_reason, is_valid_guess, is_valid_hint
+from backend.user_input import get_invalid_guess_reason, get_invalid_hint_reason, is_valid_guess, is_valid_hint
 
 
 if __name__ == '__main__':
