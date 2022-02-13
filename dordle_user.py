@@ -2,9 +2,17 @@ from backend.filter import compile_rules, filter_words
 from backend.engine import WordleEngine
 from backend.heuristic import evaluate_guess
 from backend.words import words_likely
+from user_input import get_invalid_guess_reason, get_invalid_hint_reason, is_valid_guess, is_valid_hint
 
 
 if __name__ == '__main__':
+	print("Suggested Opener: trace")
+	print("Hints Legend:")
+	print("    y - green")
+	print("    h - yellow")
+	print("    n - gray")
+	print("")
+	
 	engine = WordleEngine("")
 	hints1 = []
 	hints2 = []
@@ -12,12 +20,21 @@ if __name__ == '__main__':
 	hint1, hint2 = "", ""
 	
 	while game_running[0] or game_running[1]:
-		guess = input("Guess: ")
+		guess = input("Guess: ").lower()
+		if not is_valid_guess(guess):
+			print("Invalid guess. %s" % get_invalid_guess_reason(guess))
+			continue
 		if game_running[0]:
-			hint1 = input("Hint Left:  ")
+			hint1 = input("Hint Left:  ").lower()
+			if not is_valid_hint(hint1):
+				print("Invalid left hint. %s" % get_invalid_hint_reason(hint1))
+				continue
 			hints1.append((guess, hint1))
 		if game_running[1]:
-			hint2 = input("Hint Right: ")
+			hint2 = input("Hint Right: ").lower()
+			if not is_valid_hint(hint2):
+				print("Invalid right hint. %s" % get_invalid_hint_reason(hint2))
+				continue
 			hints2.append((guess, hint2))
 		game_running = (game_running[0] and hint1 != "yyyyy"),\
 					   (game_running[1] and hint2 != "yyyyy")

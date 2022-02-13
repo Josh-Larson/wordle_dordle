@@ -2,6 +2,7 @@ from backend.filter import compile_rules, filter_words
 from backend.heuristic import evaluate_guess
 from backend.engine import WordleEngine
 from backend.words import words_likely
+from user_input import get_invalid_guess_reason, get_invalid_hint_reason, is_valid_guess, is_valid_hint
 
 
 if __name__ == '__main__':
@@ -16,12 +17,12 @@ if __name__ == '__main__':
 	
 	while True:
 		guess = input("Guess: ").lower()
-		hint = input("Hint:  ").lower()
-		if len(guess) != 5:
-			print("Invalid guess. Expected 5 characters")
+		if not is_valid_guess(guess):
+			print("Invalid guess. %s" % get_invalid_guess_reason(guess))
 			continue
-		if len(hint) != 5:
-			print("Invalid hint. Expected 5 characters")
+		hint = input("Hint:  ").lower()
+		if not is_valid_hint(hint):
+			print("Invalid hint. %s" % get_invalid_hint_reason(hint))
 			continue
 		if hint == "yyyyy":
 			break
