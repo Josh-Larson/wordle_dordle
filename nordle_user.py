@@ -9,7 +9,7 @@ import sys
 
 
 def get_inputs(n: int, hints: List[List[Tuple[str, str]]], game_running: List[bool]):
-	guess = input("Guess: ").lower()
+	guess = input("Guess:  ").lower()
 	if not is_valid_guess(guess):
 		print("Invalid guess. %s" % get_invalid_guess_reason(guess))
 		return None
@@ -18,7 +18,7 @@ def get_inputs(n: int, hints: List[List[Tuple[str, str]]], game_running: List[bo
 	game_running_buffer = game_running.copy()
 	for i in range(n):
 		if game_running[i]:
-			hint = input("Hint %d:  " % (i+1)).lower()
+			hint = input("Hint %d: " % (i+1)).lower()
 			if not is_valid_hint(hint):
 				print("Invalid hint %d. %s" % (i+1, get_invalid_hint_reason(hint)))
 				return None
