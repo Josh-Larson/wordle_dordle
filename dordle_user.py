@@ -3,6 +3,7 @@ from backend.engine import WordleEngine
 from backend.heuristic import evaluate_guess
 from backend.words import words_likely
 from backend.user_input import get_invalid_guess_reason, get_invalid_hint_reason, is_valid_guess, is_valid_hint
+from backend.user_helper import print_results
 
 
 if __name__ == '__main__':
@@ -79,4 +80,11 @@ if __name__ == '__main__':
 		print("")
 		
 		if len(guesses_left) <= 1 and len(guesses_right) <= 1:
+			if len(guesses_left) == 1:
+				hints1.append((guesses_left[0][0], "yyyyy"))
+				if len(guesses_right) == 1:
+					hints2.append((guesses_left[0][0], engine.get_hint(guesses_left[0][0], guesses_right[0][0])))
+			if len(guesses_right) == 1:
+				hints2.append((guesses_right[0][0], "yyyyy"))
 			break
+	print_results("Dordle", [hints1, hints2])

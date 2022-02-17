@@ -3,6 +3,7 @@ from backend.heuristic import evaluate_guess
 from backend.engine import WordleEngine
 from backend.words import words_likely
 from backend.user_input import get_invalid_guess_reason, get_invalid_hint_reason, is_valid_guess, is_valid_hint
+from backend.user_helper import print_results
 
 
 if __name__ == '__main__':
@@ -33,8 +34,14 @@ if __name__ == '__main__':
 		print("")
 		if len(possible_words) == 1:
 			print("Answer: %s" % possible_words[0])
+			print("")
+			hints.append((possible_words[0], "yyyyy"))
 			break
 		elif len(possible_words) <= 10:
+			best_reduction_word = max(words_likely, key=lambda word: evaluate_guess(possible_words, engine, word))
+			print("Suggested Word: %s" % best_reduction_word)
+			print("")
+			
 			scored_words = [(word, evaluate_guess(possible_words, engine, word)) for word in possible_words]
 			print("Possibilities")
 			print("-------------")
@@ -46,3 +53,4 @@ if __name__ == '__main__':
 			best_reduction_word = max(words_likely, key=lambda word: evaluate_guess(possible_words, engine, word))
 			print("Suggested Word: %s" % best_reduction_word)
 		print("")
+	print_results("Wordle", [hints])

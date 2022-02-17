@@ -3,6 +3,7 @@ from backend.engine import WordleEngine
 from backend.heuristic import evaluate_guess
 from backend.words import words_likely
 from backend.user_input import get_invalid_guess_reason, get_invalid_hint_reason, is_valid_guess, is_valid_hint
+from backend.user_helper import print_results
 
 from typing import List, Tuple
 import sys
@@ -26,8 +27,9 @@ def get_inputs(n: int, hints: List[List[Tuple[str, str]]], game_running: List[bo
 			game_running_buffer[i] = game_running_buffer[i] and hint != "yyyyy"
 	
 	for i in range(n):
-		hints[i].append(hint_buffer[i])
-		game_running[i] = game_running_buffer[i]
+		if len(hint_buffer[i][1]) > 0:
+			hints[i].append(hint_buffer[i])
+			game_running[i] = game_running_buffer[i]
 
 	return guess
 
@@ -108,7 +110,15 @@ def main():
 		print("")
 		
 		if all(len(g) <= 1 for g in guesses):
+			for i in range(n):
+				if len(guesses[i]) == 1:
+					hints[i].append((guesses[i][0][0], "yyyyy"))
+					for j in range(i+1, n):
+						if game_running[j] and len(guesses[j]) > 0:
+							hints[j].append((guesses[i][0][0], engine.get_hint(guesses[i][0][0], guesses[j][0][0])))
+					game_running[i] = False
 			break
+	print_results("Nordle", hints)
 
 
 if __name__ == '__main__':
