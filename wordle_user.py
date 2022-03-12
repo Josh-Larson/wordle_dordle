@@ -25,9 +25,10 @@ if __name__ == '__main__':
 		if not is_valid_hint(hint):
 			print("Invalid hint. %s" % get_invalid_hint_reason(hint))
 			continue
+		
+		hints.append((guess, hint))
 		if hint == "yyyyy":
 			break
-		hints.append((guess, hint))
 		rules = compile_rules(hints)
 		possible_words = [word for word in filter_words(rules)]
 		
