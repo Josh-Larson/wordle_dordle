@@ -39,11 +39,16 @@ if __name__ == '__main__':
 			hints.append((possible_words[0], "yyyyy"))
 			break
 		elif len(possible_words) <= 10:
+			scored_words = [(word, evaluate_guess(possible_words, engine, word)) for word in possible_words]
+			scored_words.sort(key=lambda word: word[1], reverse=True)
 			best_reduction_word = max(words_likely, key=lambda word: evaluate_guess(possible_words, engine, word))
+			
+			if scored_words[0][1] >= evaluate_guess(possible_words, engine, best_reduction_word):
+				best_reduction_word = scored_words[0][0]
+			
 			print("Suggested Word: %s" % best_reduction_word)
 			print("")
 			
-			scored_words = [(word, evaluate_guess(possible_words, engine, word)) for word in possible_words]
 			print("Possibilities")
 			print("-------------")
 			for word in scored_words[:5]:
